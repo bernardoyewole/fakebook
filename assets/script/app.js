@@ -2,5 +2,5 @@
 
 import { onEvent, select, selectAll, create, print } from "./utils.js";
 
-import { Subscriber } from "./User.js";
+import { Subscriber } from "./Subscriber.js";
 

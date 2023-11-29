@@ -1,7 +1,6 @@
-## Shape Factory
+## Fakebook
 
-This is a fun activity where you can create shapes of different colors by clicking a button. On the button click, 
-a ```div``` element is created and appended to a grid container.
+
 
 ### Built With
 <p align='center'>
