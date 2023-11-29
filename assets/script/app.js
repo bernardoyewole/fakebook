@@ -23,7 +23,7 @@ const newSubscriber = new Subscriber(
     groupsArr, pagesArr, true
 );
 
-console.log(newSubscriber.getInfo())
+// console.log(newSubscriber.getInfo())
 
 // Modal
 const dialog = select('.dialog');
@@ -48,31 +48,42 @@ window.addEventListener('click', (event) => {
 const post = select('.post');
 const text = select('textarea');
 const fileInput = select('#file-input');
+const fileName = select('.file-name');
 const fakebook = select('.fakebook');
 
-// print(fileInput.files)
-// print(text.value)
+onEvent('change', fileInput, () => {
+    let file = fileInput.files[0];
+    if (file.type.startsWith('image/')) {
+        fileName.innerText = `${fileInput.files[0].name}`;
+    } else {
+        fileName.innerText = `Choose a picture to post`;
+    }
+});
 
 function getText() {
     return text.value.trim();
 }
 
 function getImage() {
-    let file = fileInput.files[0];
-    if (file.type.startsWith('image/')) {
-        let img = create('img');
-        img.src = URL.createObjectURL(file);
-        return img;
+    if (fileInput.files.length !== 0) {
+        let file = fileInput.files[0];
+        if (file.type.startsWith('image/')) {
+            let img = create('img');
+            img.src = URL.createObjectURL(file);
+            return img;
+        }
     }
 }
 
+// console.log(fileInput.files.length)
 function postHeaderContent() {
-    let userIcon = create('img');
-    userIcon.src = '../img/contacts-24.png';
+    let userIcon = create('i');
+    userIcon.classList.add('fa-solid');
+    userIcon.classList.add('fa-user');
     let name = create('p');
     name.innerText = newSubscriber.name;
     let date = create('p');
-    date.innerText = new Date().toLocaleDateString()
+    date.innerText = new Date().toDateString()
     return [userIcon, name, date];
 }
 
@@ -80,11 +91,18 @@ function createHeader() {
     let header = create('div');
     header.classList.add('flex');
     let content = postHeaderContent();
-    console.log(content)
     content.forEach(arg => {
         header.appendChild(arg);
     })
     return header;
+}
+
+function appendPost(container) {
+    if (fakebook.children.length > 1) {
+        fakebook.insertBefore(container, fakebook.children[1]);
+    } else {
+        fakebook.append(container);
+    }
 }
 
 function createPost() {
@@ -95,12 +113,13 @@ function createPost() {
     post.innerText = getText();
     postContainer.appendChild(header);
     postContainer.appendChild(post);
-    postContainer.appendChild(img);
-    fakebook.appendChild(postContainer);
+    if (getImage()) { postContainer.appendChild(img); }
+    appendPost(postContainer);
 }
 
 onEvent('click', post, () => {
     createPost();
-})
-
-
+    fileInput.value = null;
+    fileName.innerText = '';
+    text.value = '';
+});

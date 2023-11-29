@@ -63,7 +63,23 @@ main {
 
 .flex {
     display: flex;
-    justify-content: sb;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.flex i {
+    font-size: 28px;
+}
+
+.flex p:first-of-type {
+    font-weight: 500;
+}
+
+.flex p:last-of-type {
+    font-size: 14px;
+    color: #797979;
+    font-weight: 500;
 }
 
 .fakebook {
@@ -135,7 +151,7 @@ main {
 }
 
 .post:hover {
-    background-color: #2e71b5;
+    background-color: #005dbe;
 }
 
 /* Dialog box */
