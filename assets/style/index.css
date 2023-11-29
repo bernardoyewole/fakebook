@@ -61,6 +61,11 @@ main {
     height: 100%;
 }
 
+.flex {
+    display: flex;
+    justify-content: sb;
+}
+
 .fakebook {
     height: 100%;
     margin-top: 50px;
@@ -69,20 +74,33 @@ main {
     align-items: center;
 }
 
-.form-content {
+.user-content {
     display: flex;
     flex-direction: column;
     background-color: #1F2229;
     padding: 14px;
     border-radius: 4px;
+    width: 600px;
 }
 
 .fakebook textarea {
     background-color: #1F2229;
     color: #fff; 
     resize: none;
-    width: 550px;
     height: 135px;
+}
+
+.fakebook > div {
+    width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    margin-top: 50px;
+}
+
+.fakebook > div > img {
+    border-radius: 4px;
+    padding-top: 10px;
 }
 
 .form-two {
@@ -91,7 +109,7 @@ main {
     align-items: end;
 }
 
-input[type='file'] {
+#file-input {
     display: none;
 }
 
