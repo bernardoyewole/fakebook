@@ -23,8 +23,6 @@ const newSubscriber = new Subscriber(
     groupsArr, pagesArr, true
 );
 
-// console.log(newSubscriber.getInfo())
-
 // Modal
 const dialog = select('.dialog');
 const userInfo = select('.user-info');

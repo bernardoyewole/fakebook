@@ -23,11 +23,14 @@ nav {
     align-items: center;
 }
 
+nav h1 {
+    width: 15%;
+}
+
 nav h1 a {
     color: #0076f1;
     font-size: 26px;
     font-weight: 500;
-    width: 10%;
     text-align: center;
 }
 
@@ -44,7 +47,7 @@ ul li a:hover {
 nav ul {
     display: flex;
     gap: 20px;
-    width: 77%;
+    width: 75%;
     justify-content: center;
 }
 
@@ -52,7 +55,7 @@ nav ul {
     font-size: 30px;
     cursor: pointer;
     transition: 0.3s;
-    width: 13%;
+    width: 10%;
     display: flex;
     justify-content: end;
 }
@@ -225,7 +228,7 @@ main {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgb(0 0 0 / 0.7);
+    background-color: rgb(0 0 0 / 0.5);
 }
 
 .is-visible {
