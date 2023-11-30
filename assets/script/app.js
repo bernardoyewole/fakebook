@@ -12,9 +12,9 @@ let groupsArr = [
 ];
 
 let pagesArr = [
-    'Haiku Helpline',
+    'Haiku Helpline', 
     'Galactic Foodies',
-    'Punderful Puppies',
+    'Punderful Puppies', 
     'Zen Garden of Memes'
 ];
 
@@ -30,10 +30,46 @@ const dialog = select('.dialog');
 const userInfo = select('.user-info');
 const modalBg = select('.modal-bg');
 
+function setUserData() {
+    let userData = newSubscriber.getInfo();
+    let data = userData.split(', ');
+    const [name, username, email, pages, groups, monetize] = data;
+    let newPages = pages.split(',').join(', ');
+    let newGroups = groups.split(',').join(', ');
+    const newMonetize = monetize ? 'Eligible' : 'Not eligible';
+    return {
+        Name: name,
+        Username: username,
+        Email: email,
+        Pages: newPages,
+        Groups: newGroups,
+        Monetization: newMonetize
+    }
+}
+
+function populateModal() {
+    let obj = setUserData();
+    let heading = create('h1');
+    heading.innerText = `Profile`;
+    dialog.appendChild(heading);
+
+    for (const prop in obj) {
+        let box = create('div');
+        let parag = create('p');
+        let span = create('span');
+        span.innerText = prop;
+        parag.innerText = `${obj[prop]}`;
+        [span, parag].forEach(ele => box.appendChild(ele));
+        dialog.appendChild(box);
+    }
+}
+
+populateModal();
+
 userInfo.addEventListener('click', function() {
     dialog.classList.remove('is-hidden');
     dialog.classList.add('is-visible');
-    modalBg.classList.add('modal-bg-dark')
+    modalBg.classList.add('modal-bg-dark');
 });
 
 window.addEventListener('click', (event) => {
@@ -53,6 +89,7 @@ const fakebook = select('.fakebook');
 
 onEvent('change', fileInput, () => {
     let file = fileInput.files[0];
+
     if (file.type.startsWith('image/')) {
         fileName.innerText = `${fileInput.files[0].name}`;
     } else {
@@ -75,22 +112,24 @@ function getImage() {
     }
 }
 
-// console.log(fileInput.files.length)
 function postHeaderContent() {
     let userIcon = create('i');
+    let date = create('p');
+    let name = create('p');
+
     userIcon.classList.add('fa-solid');
     userIcon.classList.add('fa-user');
-    let name = create('p');
     name.innerText = newSubscriber.name;
-    let date = create('p');
-    date.innerText = new Date().toDateString()
+    date.innerText = new Date().toDateString();
+
     return [userIcon, name, date];
 }
 
 function createHeader() {
     let header = create('div');
-    header.classList.add('flex');
     let content = postHeaderContent();
+    header.classList.add('flex');
+
     content.forEach(arg => {
         header.appendChild(arg);
     })
@@ -105,16 +144,26 @@ function appendPost(container) {
     }
 }
 
+function isValid() {
+    if (text.value !== "" || fileInput.files.length !== 0) {
+        return true;
+    }
+}
+
 function createPost() {
-    let header = createHeader();
-    let postContainer = create('div');
-    let post = create('p');
-    let img = getImage();
-    post.innerText = getText();
-    postContainer.appendChild(header);
-    postContainer.appendChild(post);
-    if (getImage()) { postContainer.appendChild(img); }
-    appendPost(postContainer);
+    if (isValid ()) {
+        let header = createHeader();
+        let postContainer = create('div');
+        let post = create('p');
+        let img = getImage();
+
+        post.innerText = getText();
+        postContainer.appendChild(header);
+        postContainer.appendChild(post);
+        if (getImage()) { postContainer.appendChild(img); }
+
+        appendPost(postContainer);
+    }
 }
 
 onEvent('click', post, () => {

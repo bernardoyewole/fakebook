@@ -21,7 +21,7 @@ class Subscriber extends User {
     get canMonetize() { return this.#canMonetize }
 
     getInfo() {
-        return `${super.getInfo()}, [${this.#pages}], [${this.#groups}], ${this.#canMonetize}`
+        return `${super.getInfo()}, ${this.#pages}, ${this.#groups}, ${this.#canMonetize}`
     }
 }
 
